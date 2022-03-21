@@ -1,5 +1,6 @@
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get("id");
+const loader = document.getElementsByClassName("lds-circle")[0]
 
 async function onRequestAwait() {
     try {
@@ -7,12 +8,14 @@ async function onRequestAwait() {
         const response = await fetch(`https://api.coingecko.com/api/v3/coins/${id}`)
         const usersJson = await response.json()
 
+        loader.style.display = "none"
         if (!response.ok) {
             throw new Error(`Error: ${response.status}`);
         }
 
         printData(usersJson)
     } catch (error) {
+
         console.log(error)
     }
 }
